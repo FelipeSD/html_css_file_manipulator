@@ -3,46 +3,39 @@ import re
 import codecs  # regex
 
 
-def handleAttributes(tag, arrayProperty):
-    tagAttributes = {"tagName": "", "class": "", "id": ""}
-    index_start = index_end = 0
+def handleAttributes(arrayTag, arrayProperty):
+    tagAttributes = {"tagName": ""}
+    tagAttributes["tagName"] = arrayTag[0]
 
-    # this block is to get the tag prepared to be splitted as an array
-    # and extract the attributes from the property to put them into a dictionary properly
-    i = 0
-    while tag.find("=\"", index_start) >= 0:
-        index_start = tag.find("=\"", index_start)
-        index_end = tag.find("\"", index_start+2)
-        tag = tag[:index_start+1]+str(i)+tag[index_end+1:]
-        print(tag)
+    i = 1
+    for tagProperty in arrayProperty:
+        arrayTag[i] = arrayTag[i][:arrayTag[i].find("=")]
+        tagAttributes[arrayTag[i]] = tagProperty
         i += 1
-        index_start += 2
-
-    tagInfo = tag.split(" ")
-    print(tagInfo)
 
     return tagAttributes
 
 
 def handleTag(tag):
     # for use in handleAttributes
-    indexAtributes = []
     arrayProperty = []
 
     index_start = index_end = 0
+    i = 0
     while tag.find("=\"", index_start) >= 0:
         index_start = tag.find("=\"", index_start)
         index_end = tag.find("\"", index_start+2)
 
         propertyAttr = tag[index_start+2:index_end]
-
         arrayProperty.append(propertyAttr)
-        indexAtributes.append([index_start, index_end])
+
+        tag = tag[:index_start+1]+str(i)+tag[index_end+1:]
 
         index_start += 2
+        i += 1
 
-    # returns tag informations
-    return handleAttributes(tag, arrayProperty)
+    arrayTag = tag.split(" ")
+    return handleAttributes(arrayTag, arrayProperty)
 
 
 def handleHTMLFile(HTMLFile):
