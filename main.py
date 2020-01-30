@@ -4,15 +4,17 @@ import codecs  # regex
 
 
 def handleAttributes(arrayTag, arrayProperty):
-    tagAttributes = {"tagName": ""}
+    tagAttributes = {"tagName": "", "tagAttributes": {}}
     tagAttributes["tagName"] = arrayTag[0]
 
     i = 1
+    print(arrayTag)
     for tagProperty in arrayProperty:
         arrayTag[i] = arrayTag[i][:arrayTag[i].find("=")]
-        tagAttributes[arrayTag[i]] = tagProperty
+        tagAttributes["tagAttributes"][arrayTag[i]] = tagProperty.split(" ")
         i += 1
 
+    # print(tagAttributes)
     return tagAttributes
 
 
@@ -27,6 +29,7 @@ def handleTag(tag):
         index_end = tag.find("\"", index_start+2)
 
         propertyAttr = tag[index_start+2:index_end]
+        # print(propertyAttr)
         arrayProperty.append(propertyAttr)
 
         tag = tag[:index_start+1]+str(i)+tag[index_end+1:]
@@ -40,6 +43,9 @@ def handleTag(tag):
 
 def handleHTMLFile(HTMLFile):
     DOMElements = []
+    # handle with DOM tree
+    DOMGeneration = []
+    treePosition = 0
 
     for line in HTMLFile:
         # for each line, index position should start from beginning again
@@ -52,11 +58,17 @@ def handleHTMLFile(HTMLFile):
 
             # don't take closing tags because they don't have any attributes
             if(line[position_start+1] != '/'):
+                treePosition += 1
                 tag = line[position_start+1:position_end]
                 DOMElements.append(handleTag(tag))
+            else:
+                treePosition -= 1
+
 
             position_start += 1
             position_end += 1
+
+    print(DOMElements)
 
 
 def main(HTMLFilePath, CSSFilePath=None):
