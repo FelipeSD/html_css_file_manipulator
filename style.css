@@ -1,0 +1,30 @@
+.teste{
+    display: inline;
+    padding: 10px;
+}
+
+.olá .outro-teste
+{
+    display: contents;
+    padding: 10%;
+}
+
+.ola .aqui{
+    margin: 1rem;
+    background: brown;
+}
+
+div.teste .teste{
+    color: aquamarine;
+    font-size: larger;
+}
+
+span:hover{
+    border-bottom: 1px solid black;
+}
+
+.grande .teste + .aqui ~ div.plus{
+    width: 100vw;
+    height: auto;
+    background-color: black;
+}
