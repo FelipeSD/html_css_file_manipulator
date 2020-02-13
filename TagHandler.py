@@ -4,9 +4,6 @@ class TagHandler:
     tagAttributes = {}
     treePosition = 0
 
-    def setTagName(self, tagName):
-        self.tagName = tagName
-
     def handleTag(self, tag):
         # for use in handleAttributes
         arrayProperty = []
@@ -21,7 +18,6 @@ class TagHandler:
             arrayProperty.append(propertyAttr)
 
             tag = tag[:index_start+1]+str(i)+tag[index_end+1:]
-
             index_start += 2 # +2 because of the search for =" group
             i += 1
 
@@ -30,6 +26,7 @@ class TagHandler:
 
     def handleAttributes(self, arrayTag, arrayProperty):
         #the first position must always be the tag name
+        self.tagAttributes = {}
         self.tagName = arrayTag[0]
 
         i = 1

@@ -68,7 +68,7 @@ def handleHTMLFile(HTMLFile):
             position_start += 1
             position_end += 1
 
-    print(DOMElements)
+    # print(DOMElements)
 
 
 def main(HTMLFilePath, CSSFilePath=None):
