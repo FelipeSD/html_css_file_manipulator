@@ -1,3 +1,5 @@
+from StyleHandler import StyleHandler
+
 class CSSFileHandler:
     pseudoClassList = (
         ":link", ":vistited", ":active", ":hover",
@@ -10,10 +12,12 @@ class CSSFileHandler:
     relationshipSelectors = {
         " ": "descendent", 
         ">": "child",
-        "+": "next sibling"
+        "+": "next sibling",
+        "~": "general sibling",
+        "*": "all"
     }
 
-    FullCSSFile = []
+    FullCSSFile = ""
     Styles = [
         {"selectors": "", "properties": ""}
     ]
@@ -22,33 +26,42 @@ class CSSFileHandler:
 
     animation = []
 
+    Statistics = {
+        "mostUsedSelector": "",
+        "mostUsedProperty": ""
+    }
+
     def getCSSFile(self, CSSFilePath):
         CSSFile = open(CSSFilePath, "r")
-        ALLFile = CSSFile.read().split()
-        print("".join(ALLFile))
-        self.handleCSSFile(CSSFile)
+        self.FullCSSFile = CSSFile.read()
+
+        ALLFile = self.FullCSSFile.split("\n")
+        ALLFile = "".join(ALLFile) #making the file minified
+
+        self.handleCSSFile(ALLFile)
+
         CSSFile.close()
-    
+
+    # CSS Files are only handled in minified mode
     def handleCSSFile(self, CSSFile):
-        for line in CSSFile:
-            self.FullCSSFile.append(line)
-            # for each line, index position should start from beginning again
-            # so it is possible to match both minified and non minified CSS code
-            position_start = position_end = 0
+        position_start = position_end = 0
 
-            # print(len(line))
-            if(len(line)>0):
-                if(line.find("{", position_start) > 0):                    
-                    position_start = line.find("{", position_start)
+        while CSSFile.find("{", position_start) > 0 :
+            style = StyleHandler()
+            position_start = CSSFile.find("{", position_start)
 
-                    selector = line[:position_start]
-                    position_start += 1
-                    # print(selector)
-                else:
-                    if(line.find("}", position_start) > 0):
-                        pass
-            
+            if(position_end < position_start):
+                style.selectors["fullLine"] = CSSFile[position_end+1:position_start] #extracting selectors             
+            else: 
+                style.selectors["fullLine"] = CSSFile[:position_start] #extracting selectors
 
+            position_end = CSSFile.find("}", position_start)
+            style.properties["fullLine"] = CSSFile[position_start+1:position_end] # extracting properties
+
+            style.handleSelectors()
+            style.handleProperties()
+
+            position_start += 1
 
 myCss = CSSFileHandler()
 myCss.getCSSFile("style.css")

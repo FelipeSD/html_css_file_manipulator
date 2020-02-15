@@ -28,3 +28,15 @@ span:hover{
     height: auto;
     background-color: black;
 }
+
+.estou.testando#aqui div{
+    display: grid;
+}
+
+.agora~.tenho#outro + .teste{
+    text-transform: uppercase;
+}
+
+.input[type="text"]{
+    border: 1px solid rgb(11, 217, 224);
+}
