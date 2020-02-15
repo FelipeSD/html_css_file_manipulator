@@ -3,11 +3,11 @@ from TagHandler import TagHandler
 class HTMLFileHandler:
     #object properties
     DOMElements = []
-    FullHTMLFile = []
+    fullHTMLFile = []
 
     Statistics = {
-        "TagNameQuantity": [{"tagName": ""}],
-        "TagClassQuantity": [{"className": ""}],
+        "tagNameQuantity": [{"tagName": ""}],
+        "tagClassQuantity": [{"className": ""}],
     }
 
     def getHTMLFromFile(self, HTMLFilePath):
@@ -24,7 +24,7 @@ class HTMLFileHandler:
         treePosition = 0
 
         for line in HTMLFile:
-            self.FullHTMLFile.append(line)
+            self.fullHTMLFile.append(line)
             # for each line, index position should start from beginning again
             # so it is possible to match both minified and non minified HTML code
             position_start = position_end = 0
