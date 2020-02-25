@@ -80,11 +80,11 @@ class StyleHandler:
                     else:
                         break
 
-                print(indexSelector)
+                # print(indexSelector)
 
                 i=0
                 if(len(indexSelector) != 0 and indexSelector[i] != 0):
-                    print("Primeiro seletor é uma tag")
+                    # print("Primeiro seletor é uma tag")
                     self.selectors["tagsUsed"].append(s[:indexSelector[i]])
 
                 for i in range(len(indexSelector)):
@@ -92,16 +92,16 @@ class StyleHandler:
 
                     if i+1 <= len(indexSelector):
                         if(s[index] == "."):
-                            print("Class")
+                            # print("Class")
                             self.selectors["classesUsed"].append(s[index:])
                         elif(s[index] == "#"):
-                            print("ID")
+                            # print("ID")
                             self.selectors["idsUsed"].append(s[index:])
                         elif(s[index] == "["):
-                            print("ATTRIBUTE")
+                            # print("ATTRIBUTE")
                             self.selectors["attributesUsed"].append(s[index:])
                         else:
-                            print("TAG")
+                            # print("TAG")
                             self.selectors["tagsUsed"].append(s[index:])
 
     def handleProperties(self):

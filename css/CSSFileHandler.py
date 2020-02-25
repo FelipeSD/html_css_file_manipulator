@@ -1,7 +1,6 @@
-from StyleHandler import StyleHandler
+import StyleHandler as sh
 
 class CSSFileHandler:
-
     FullCSSFile = ""
     Styles = [
         {"selectors": "", "properties": ""}
@@ -22,7 +21,7 @@ class CSSFileHandler:
 
         ALLFile = self.FullCSSFile.split("\n")
         ALLFile = "".join(ALLFile) #making the file minified
-        # print(ALLFile)
+
         self.handleCSSFile(ALLFile)
 
         CSSFile.close()
@@ -31,7 +30,7 @@ class CSSFileHandler:
     def handleCSSFile(self, CSSFile):
         position_start = position_end = 0
         while CSSFile.find("{", position_start) > 0 :
-            style = StyleHandler()
+            style = sh.StyleHandler()
             position_start = CSSFile.find("{", position_start)
             
             if(CSSFile[position_end] == "}"):
@@ -46,6 +45,6 @@ class CSSFileHandler:
             style.handleProperties()
 
             position_start += 1
-
+    
 myCss = CSSFileHandler()
-myCss.getCSSFile("style.css")
+myCss.getCSSFile("FILES/style.css")

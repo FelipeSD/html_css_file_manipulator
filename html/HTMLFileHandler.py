@@ -1,4 +1,4 @@
-from TagHandler import TagHandler
+import TagHandler as th
 
 class HTMLFileHandler:
     #object properties
@@ -12,6 +12,7 @@ class HTMLFileHandler:
 
     def getHTMLFromFile(self, HTMLFilePath):
         HTMLDocument = open(HTMLFilePath, "r")
+        print("HTML rodando")
         self.handleHTMLFile(HTMLDocument) #It calls inside method to handle the file
         HTMLDocument.close()
 
@@ -35,7 +36,7 @@ class HTMLFileHandler:
 
                 # don't take closing tags because they don't have any attributes
                 if(line[position_start+1] != '/'):
-                    tag = TagHandler()
+                    tag = th.TagHandler()
                     tag.fullTag = line[position_start:position_end+1]
                     tag.treePosition = treePosition
                     tag.handleTag(line[position_start+1:position_end])
@@ -48,6 +49,5 @@ class HTMLFileHandler:
                 position_start += 1
                 position_end += 1
 
-
 myHTML = HTMLFileHandler()
-myHTML.getHTMLFromFile("HTML.HTML")
+myHTML.getHTMLFromFile("c:\\Projetos\\html_css_file_manipulator\\files\\HTML.HTML")
