@@ -1,6 +1,7 @@
-import StyleHandler as sh
+from cssController.StyleHandler import StyleHandler
 
 class CSSFileHandler:
+    teste = "CSS"
     FullCSSFile = ""
     Styles = [
         {"selectors": "", "properties": ""}
@@ -16,6 +17,7 @@ class CSSFileHandler:
     }
 
     def getCSSFile(self, CSSFilePath):
+        print("CSS rodando")
         CSSFile = open(CSSFilePath, "r")
         self.FullCSSFile = CSSFile.read()
 
@@ -30,7 +32,7 @@ class CSSFileHandler:
     def handleCSSFile(self, CSSFile):
         position_start = position_end = 0
         while CSSFile.find("{", position_start) > 0 :
-            style = sh.StyleHandler()
+            style = StyleHandler()
             position_start = CSSFile.find("{", position_start)
             
             if(CSSFile[position_end] == "}"):
@@ -43,8 +45,4 @@ class CSSFileHandler:
 
             style.handleSelectors()
             style.handleProperties()
-
             position_start += 1
-    
-myCss = CSSFileHandler()
-myCss.getCSSFile("FILES/style.css")

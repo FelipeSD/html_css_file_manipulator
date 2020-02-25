@@ -28,7 +28,6 @@ class TagHandler:
         #the first position must always be the tag name
         self.tagAttributes = {}
         self.tagName = arrayTag[0]
-        print(self.tagName)
         i = 1
         for tagProperty in arrayProperty:
             arrayTag[i] = arrayTag[i][:arrayTag[i].find("=")] #set attribute name

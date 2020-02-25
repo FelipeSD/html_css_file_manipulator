@@ -1,4 +1,4 @@
-import TagHandler as th
+from htmlController.TagHandler import TagHandler
 
 class HTMLFileHandler:
     #object properties
@@ -36,11 +36,10 @@ class HTMLFileHandler:
 
                 # don't take closing tags because they don't have any attributes
                 if(line[position_start+1] != '/'):
-                    tag = th.TagHandler()
+                    tag = TagHandler()
                     tag.fullTag = line[position_start:position_end+1]
                     tag.treePosition = treePosition
                     tag.handleTag(line[position_start+1:position_end])
-                    # print(tag.tagAttributes)
                     self.DOMElements.append(tag)
                     treePosition += 1
                 else:
@@ -48,6 +47,3 @@ class HTMLFileHandler:
 
                 position_start += 1
                 position_end += 1
-
-myHTML = HTMLFileHandler()
-myHTML.getHTMLFromFile("c:\\Projetos\\html_css_file_manipulator\\files\\HTML.HTML")
