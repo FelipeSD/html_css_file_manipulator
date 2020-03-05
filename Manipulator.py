@@ -5,9 +5,21 @@
 from cssController.CSSFileHandler import CSSFileHandler
 from htmlController.HTMLFileHandler import HTMLFileHandler
 
-HTMLFileHandler().getHTMLFromFile("files/html.html")
-CSSFileHandler().getCSSFile("files/style.css")
-
 class Manipulator:
-    def __init__(self):
-        pass
+
+    def generateNewCssFile(self, arrayHtmlFiles, arrayCssFiles):
+        print("Aqui")
+        for html in arrayHtmlFiles:
+            for tag in html.DOMElements:
+                print(tag.tagName)
+        
+        for css in arrayCssFiles:
+            for style in css.Styles:
+                print(style.selectors)
+
+manipulator = Manipulator()
+myHtml = HTMLFileHandler()
+myHtml.getHTMLFromFile("files/html.html")
+myCss = CSSFileHandler()
+myCss.getCSSFile("files/style.css")
+manipulator.generateNewCssFile([myHtml], [myCss])

@@ -4,7 +4,7 @@ class CSSFileHandler:
     teste = "CSS"
     FullCSSFile = ""
     Styles = [
-        {"selectors": "", "properties": ""}
+        # {"selectors": "", "properties": ""}
     ]
 
     mediaQueries = []
@@ -44,5 +44,6 @@ class CSSFileHandler:
             style.properties["fullLine"] = CSSFile[position_start+1:position_end] # extracting properties
 
             style.handleSelectors()
-            style.handleProperties()
+            # style.handleProperties()
+            self.Styles.append(style)
             position_start += 1

@@ -44,12 +44,7 @@ class StyleHandler:
         }
 
     def handleSelectors(self):
-        # self.selectors["classesUsed"] = [],
-        # self.selectors["idsUsed"] = [],
-        # self.selectors["tagsUsed"] = [],
-        # self.selectors["attributesUsed"] = [],
-        # self.selectors["pseudoClassesUsed"] = []
-        
+
         selectors = self.selectors["fullLine"].replace(r"\t", "") # removing possible existing tabs
 
         selectors = selectors.split(",")
@@ -71,16 +66,18 @@ class StyleHandler:
             #separating selectors -> ex: .className.anotherClassName
             for s in newSelectorArray:
                 next_position = 0
+                aux_position = -1
                 indexSelector = []
-                while True:
+                while aux_position<next_position:
                     match = re.search(r"\.|\#|\[", s[next_position:])
                     if(match):
                         indexSelector.append(match.start())
+                        aux_position = next_position
                         next_position = match.start()+1
                     else:
                         break
 
-                # print(indexSelector)
+                print(indexSelector)
 
                 i=0
                 if(len(indexSelector) != 0 and indexSelector[i] != 0):
